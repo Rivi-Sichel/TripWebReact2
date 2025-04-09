@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode"; 
 
 
-const baseUrl = "http://localhost:4000/orders";
+const baseUrl = "https://tripwebnode.onrender.com/orders";
 
 export const saveOrderServer = (order) => {
     return axios.post(baseUrl, order);

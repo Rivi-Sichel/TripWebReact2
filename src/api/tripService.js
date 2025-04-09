@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:4000/trip";
+const baseUrl = "https://tripwebnode.onrender.com/trip";
 
 
 export const getAll = (pageNum) => {

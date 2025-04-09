@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:4000/user";
+const baseUrl = "https://tripwebnode.onrender.com/user";
 
 export const signupServer  = (user)=>{
     return axios.post(baseUrl+"/signup", user);
