@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 
-import { getAllOrders } from "../api/orderService";
+import { getAllOrders } from "../api/OrderService";
 import { useSelector } from "react-redux";
 
 import SingleOrder from "../pages/SingleOrder";
