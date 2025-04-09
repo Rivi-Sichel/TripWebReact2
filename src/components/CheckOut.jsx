@@ -1,56 +1,11 @@
-//Not Using MUI:
-// import { useSelector } from "react-redux";
-// import { saveOrderServer } from "../api/orderService";
-// const CheckOut = () => {
-//     const user = useSelector(state => state.user.currentUser)
-//     const trip = useSelector(state => state.cart.arr)
-//     const count = useSelector(state => state.cart.count);
-//     const s = useSelector(state => state.cart.sum);
-//     const save = (e) => {
-//         e.preventDefault();
-//         // המרת המידע של trips בצורה שמתאימה לשרת
-//         const orderedTrip = trip.map(item => ({
-//             tripId: item._id,  // שים לב אם _id הוא השדה הנכון (תלוי במבנה של ה-trip שלך)
-//             quantity: item.qty  // לוודא שהכמות קיימת ב-trip
-//         }));
-//         // const orderUserId ={userId:user._id}
-//         const orderUserId = user._id;
-//         const orderData = {
-//             orderUserId: orderUserId,
-//             orderedTrip: orderedTrip
-//         };
-//         // המרת ה-userId כך שיישלח כ-`userId`
-//         // שליחת ההזמנה עם המידע המעודכן
-//         saveOrderServer(orderData).then(res => {
-//             console.log(res);
-//         }).catch(err => {
-//             console.log(err);
-//         });
-//     };
-//     return (<>
-//         <h1>You're in checkout page</h1>
-//         <h3>Total: {s}</h3>
-//         <h3>{count} Items</h3>
-//         <form onSubmit={save}>
-//             <input type="text" placeholder="הכנס מספר כרטיס" required />
-//             <input type="date" placeholder="הכנס תאריך" required />
-//             <input type="text" placeholder="הכנס 3 ספרות בגב הכרטיס" required />
-//             <input type="text" required defaultValue={user.userName} disabled />
-//             <input type="submit" value="Enter to save order" />
-//         </form>
-//     </>);
-// }
-// export default CheckOut;
-
-
-
-
-
-
-//Using MUI:
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { saveOrderServer } from "../api/OrderService";
+
+import { useDispatch } from "react-redux";
+
+import { clearCart } from "../features/cartSlice";
+
 import {
     Container,
     Typography,
@@ -159,33 +114,64 @@ const CheckOut = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const save = (e) => {
-        e.preventDefault();
+    // const save = (e) => {
+    //     e.preventDefault();
 
-        const orderedTrip = trip.map((item) => ({
-            tripId: item._id,
-            quantity: item.qty,
-        }));
+    //     const orderedTrip = trip.map((item) => ({
+    //         tripId: item._id,
+    //         quantity: item.qty,
+    //     }));
 
-        const orderUserId = user._id;
+    //     const orderUserId = user._id;
 
-        const orderData = {
-            orderUserId: orderUserId,
-            orderedTrip: orderedTrip,
-        };
+    //     const orderData = {
+    //         orderUserId: orderUserId,
+    //         orderedTrip: orderedTrip,
+    //     };
 
-        saveOrderServer(orderData)
-            .then((res) => {
-                console.log(res);
-                alert("Order Saved Successfully")
-                navigate("/")
-                // Add actions after saving the order, like navigating to confirmation page
-            })
-            .catch((err) => {
-                console.log(err);
-                // Add error handling
-            });
+    //     saveOrderServer(orderData)
+    //         .then((res) => {
+    //             console.log(res);
+    //             alert("Order Saved Successfully")
+    //             navigate("/")
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+               
+    //         });
+    // };
+
+
+const dispatch = useDispatch();
+
+const save = (e) => {
+    e.preventDefault();
+
+    const orderedTrip = trip.map((item) => ({
+        tripId: item._id,
+        quantity: item.qty,
+    }));
+
+    const orderUserId = user._id;
+
+    const orderData = {
+        orderUserId: orderUserId,
+        orderedTrip: orderedTrip,
     };
+
+    saveOrderServer(orderData)
+        .then((res) => {
+            console.log(res);
+            alert("Order Saved Successfully");
+
+            dispatch(clearCart()); // 🤩 פה אנחנו מנקים את הסל
+
+            navigate("/");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
 
     const getStepContent = (step) => {
         switch (step) {
