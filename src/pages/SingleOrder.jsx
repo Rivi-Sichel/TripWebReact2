@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getOrderById } from "../api/orderService";
+import { getOrderById } from "../api/OrderService";
 import { Card, CardContent, Typography, Grid } from "@mui/material";
 
 const SingleOrder = ({ order }) => {
