@@ -1,0 +1,54 @@
+.slide-cart {
+    position: fixed;
+    top: 50%;
+    right: -300px; /* מתחיל מחוץ למסך */
+    width: 250px;
+    background: white;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px 0 0 10px;
+    padding: 15px;
+    transition: right 0.5s ease-in-out;
+    z-index: 1000;
+    transform: translateY(-50%);
+}
+
+.slide-cart.show {
+    right: 0; /* מופיע מהצד */
+}
+
+.cart-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart-content h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.cart-content p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cart-items {
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+button {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button:hover {
+    background: #e68900;
+}
